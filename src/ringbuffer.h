@@ -6,7 +6,7 @@
 #include <stdint.h>
 
 typedef struct {
-    int8_t *buffer;                  /* size is esize * capacity */ 
+    int8_t *buffer;                  /* data stored in bytes; size is esize * capacity */ 
     unsigned int esize;              /* size of element */
     unsigned int capacity;           /* Capacity of ringbuffer in elements, always power of 2 */
     unsigned int start;              /* start of valid data, loc of read pointer */
@@ -72,10 +72,14 @@ unsigned int inline RB_postSpace(RingBuffer *ring)
 
 /* Writes single unit of data (D) to (R)'s buffer. Updates write pointer in ring.
  * Requires: (D) type has same size as (R)->esize. */
-#define RB_WRITE(R, D) { memcpy(R->buffer + (MODPOW2(R->end, R->capacity) * R->esize), &D,  R->esize); R->end++; } 
+#define RB_WRITE(R, D) memcpy(R->buffer + (MODPOW2(R->end++, R->capacity) * R->esize), &D,  R->esize); 
 
-/* Returns pointer to one element in ringbuffer (R) of type (DS) at index specified in dataread (D). 
+/* Returns pointer to one element in ringbuffer (R) of type (DS) at index specified in dataread (DR). 
  * Requires: DS is a type (int, char, etc) of same size as (R)->esize */
-#define RB_READ(R, D, DS) (DS *) &(R->buffer[MODPOW2(D->index++, R->capacity) * R->esize])  
+#define RB_READ(R, DR, DS) (DS *) &(R->buffer[MODPOW2((DR)->index++, R->capacity) * R->esize])  
+
+/* Copies 1 element in ringbuffer at index of dataread (DR) into data (D). D should be a variable of same type
+ * as element. */
+#define RB_READCOPY(R, DR, D) memcpy(&D, &R->buffer[MODPOW2((DR)->index++, R->capacity) * R->esize], R->esize) 
 
 #endif

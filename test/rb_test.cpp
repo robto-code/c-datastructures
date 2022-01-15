@@ -53,7 +53,7 @@ TEST(RBNoOverwrite, basic)
     free(reader);
 }
 
-TEST(RBNoOverwrite, full)
+TEST(RBNoOverwrite, readcopy)
 {
     RingBuffer *ring = RB_create(sizeof(int), 16);
     DataRead *reader = (DataRead*) malloc(sizeof(DataRead));
@@ -70,7 +70,9 @@ TEST(RBNoOverwrite, full)
     int i = 0;
     while (RB_readSpace(ring, reader) > 0)
     {
-        EXPECT_EQ(*RB_READ(ring, reader, int), vals[i++]);
+        int a;
+        RB_READCOPY(ring, reader, a);
+        EXPECT_EQ(a, vals[i++]);
         RB_post(ring);
     }
     EXPECT_EQ(RB_writeSpace(ring), 16u);
