@@ -16,19 +16,25 @@ Node* Node_create(uint32_t esize, Node* next);
  * Make sure to remove 'next' references to n in other nodes. */
 void Node_destroy(Node* n);
 
-/* Appends n2 to  n1. 
- * If n1 already has a next node n3, then n3 is removed from n1 and appended to n2. 
- * Requires: n2 does not have a next node. */
-void Node_insert(Node* n1, Node* n2);
+/** Writes value V to Node N.
+ * @N: node to be written into 
+ * @V: value */
+#define NODE_WRITE(N, V) memcpy(N->value, &V, sizeof(V));
 
-/* Writes value V of size E (in bytes)to Node N */
-#define NODE_WRITE(N, V, E) memcpy(N->value, V, E);
+/** Reads value of type T from Node N.
+ * @N: node
+ * @T: type of value */
+#define NODE_READ(N, T) ((T*) (N->value))
 
-/* Reads value of type T from Node N */
-#define NODE_READ(N, T) (T*) N->value;
+/** Copies value from node N to D. 
+ * @N: node
+ * @D: data container (ex: variable). N->value is copied into here */
+#define NODE_READCOPY(N, D) memcpy(&D, N->value, sizeof(D));
 
-/* Copies E bytes from node N->value to D. 
- * E should be the element size, in bytes, of the value. */
-#define NODE_READCOPY(N, D, E) memcpy(D, N->value, E);
+/** Creates Node at N with value V and next NEXT.
+ * @N: variable must be of type Node */
+#define NODE_EMPLACE(N, V, NEXT) \
+    N = Node_create(sizeof(V), NEXT); \
+    NODE_WRITE(N, V);
 
 #endif //node.h

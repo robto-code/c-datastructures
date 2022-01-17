@@ -1,14 +1,14 @@
 CC=gcc
 CFLAGS=-Wall -g -O2
 
-SRCS= *.cpp
+SRCS= rb_test.cpp node_test.cpp stack_test.cpp test.cpp
 OBJS= $(SRCS:%.cpp=%.o)
 GTEST_DIR=../../google/
 GLIBS=$(GTEST_DIR)gtest_lib/
 SRC_DIR=../src/
 UTIL_DIR=../util/
 BUILD_DIR = ../build/
-BUILD=$(addprefix ${BUILD_DIR}, ringbuffer.o)
+BUILD=$(addprefix ${BUILD_DIR}, ringbuffer.o node.o linkedlist.o)
 
 LIB_LINKS = -L$(GLIBS) -lgtest -lstdc++ -lm -lpthread
 INC_DIR = -I $(GTEST_DIR) -I $(SRC_DIR) -I $(UTIL_DIR)

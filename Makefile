@@ -10,16 +10,16 @@ INC_DIR=../$(UTIL_DIR)
 
 UTILS=debug.h utilities.h
 SRC = ringbuffer.c linkedlist.c node.c ringbuffer.h linkedlist.h node.h
-
-FILES=$(UTILS) $(RB)
-
+BUILD = ringbuffer.o linkedlist.o node.o stack.o
+BUILD_REQ = $(addprefix ${BUILD_DIR}, ${BUILD})
+SRC_REQ = $(addprefix ${SRC_DIR}, ${SRC})
 
 .PHONY=all 
-all: ringbuffer.o $(TEST_DIR)test
+all: $(BUILD) $(TEST_DIR)test
 
 #DATASTRUCTS
 
-build: ringbuffer.o linkedlist.o node.o
+build: $(BUILD)
 
 %.o: $(SRC_DIR)%.c
 	cd $(SRC_DIR); $(CC) $(CFLAGS) -I $(INC_DIR) -c ../$^; mv $@ ../$(BUILD_DIR)
@@ -27,7 +27,7 @@ build: ringbuffer.o linkedlist.o node.o
 #TESTS
 
 .PHONY = tester
-tester: $(TEST_DIR)test; 
+tester: $(TEST_DIR)test $(BUILD_REQ) $(SRC_REQ)
 
 $(TEST_DIR)test:
 	cd $(TEST_DIR); make test 
