@@ -3,16 +3,16 @@
 #include "node.h"
 #include <stdlib.h>
 
-LinkedList* List_create(uint32_t esize) 
+LinkedList* List_create(int32_t esize) 
 {
     LinkedList* l_list = malloc(sizeof(LinkedList));
     l_list->esize = esize;
     l_list->length = 0;
-    l_list->head = l_list->tail = NULL;
+    l_list->head = NULL;
 
     return l_list;
 }
-
+/*
 void List_destroy(LinkedList* list)
 {
     Node* destroy = list->head;
@@ -121,7 +121,7 @@ Node* List_remove(LinkedList* list, uint32_t pos)
     if (pos == 0) return List_decapitate(list);
     else if (pos == list->length-1) return List_pop(list);
 
-    Node** dest = &(list->head); /* Node before node to be removed */
+    Node** dest = &(list->head);
     while(--pos)
     {
         dest = &((*dest)->next);
@@ -155,4 +155,4 @@ void List_delete(LinkedList* list, uint32_t pos)
 {
     Node_destroy(List_remove(list, pos));
 }
-
+*/

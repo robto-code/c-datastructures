@@ -8,7 +8,7 @@ GLIBS=$(GTEST_DIR)gtest_lib/
 SRC_DIR=../src/
 UTIL_DIR=../util/
 BUILD_DIR = ../build/
-BUILD=$(addprefix ${BUILD_DIR}, ringbuffer.o node.o linkedlist.o)
+BUILD=$(addprefix ${BUILD_DIR}, ringbuffer.o node.o stack.o)
 
 LIB_LINKS = -L$(GLIBS) -lgtest -lstdc++ -lm -lpthread
 INC_DIR = -I $(GTEST_DIR) -I $(SRC_DIR) -I $(UTIL_DIR)
