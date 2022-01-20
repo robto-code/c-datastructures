@@ -1,9 +1,8 @@
-
 #ifndef __linkedlist_h__
 #define __linkedlist_h__ 
 
 #include <stdint.h>
-//#include "node.h"
+#include "node.h"
 
 typedef struct {
     int32_t length; 
@@ -25,10 +24,9 @@ LinkedList* List_create(int32_t esize);
 /** Loops through each value in list. 
  * @list: list to be looped through
  * @valvar: loop variable for value
- * @nodevar: loop variable for node
- * @member: name of 'value' member in struct Node */
-#define LIST_FOREACHVAL(list, valvar, nodevar, member) \
-    for (loopvar = list->head, valvar = loopvar->member; loopvar != nullptr; loopvar = loopvar->next) 
+ * @nodevar: loop variable for node */
+#define LIST_FOREACHVAL(list, valvar, nodevar) \
+    for (loopvar = list->head, valvar = NODE_READ(loopvar, typeof(valvar)); loopvar != nullptr; loopvar = loopvar->next) 
 
 /* Removes list and all nodes within it from memory. */
 //void List_destroy(LinkedList* list);

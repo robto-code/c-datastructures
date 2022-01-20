@@ -10,8 +10,8 @@ INC_DIR=../$(UTIL_DIR)
 
 UTILS=debug.h utilities.h
 #SRC = ringbuffer.c linkedlist.c node.c ringbuffer.h linkedlist.h node.h
-SRC = ringbuffer.c node.c ringbuffer.h node.h
-BUILD = ringbuffer.o  node.o stack.o
+SRC = ringbuffer.c node.c stack.c dnode.c ringbuffer.h node.h dnode.h stack.h
+BUILD = ringbuffer.o  node.o stack.o dnode.o
 BUILD_REQ = $(addprefix ${BUILD_DIR}, ${BUILD})
 SRC_REQ = $(addprefix ${SRC_DIR}, ${SRC})
 

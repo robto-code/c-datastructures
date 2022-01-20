@@ -12,7 +12,7 @@ LinkedList* List_create(int32_t esize)
 
     return l_list;
 }
-/*
+
 void List_destroy(LinkedList* list)
 {
     Node* destroy = list->head;
@@ -155,4 +155,3 @@ void List_delete(LinkedList* list, uint32_t pos)
 {
     Node_destroy(List_remove(list, pos));
 }
-*/
