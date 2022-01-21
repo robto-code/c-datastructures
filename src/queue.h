@@ -18,17 +18,22 @@ Queue* queue_create();
  * Removes queue and all nodes within from memory. */
 void queue_destroy(Queue* queue);
 
+/** Pushes node onto queue. */
 void queue_push(Queue* queue, Dnode* node);
 
+/** Removes and returns tail node from queue. */
 Dnode* queue_pop(Queue* queue);
 
+/** Returns tail node in queue */
 Dnode* queue_peek(Queue* queue);
 
+/** Returns length of queue */
 static inline int32_t queue_length(Queue* queue)
 {
     return queue->length;
 }
 
+/** Returns 1 if empty, 0 otherwise */
 static inline int queue_isempty(Queue* queue)
 {
     return (queue->head == NULL);
